@@ -1,13 +1,5 @@
 target = input("kívánt állapot: ").replace("[","").replace("] ",", ").split(", ")
 
-
-
-
-
-
-
-
-
 for i in range(len(target)):
     target[i] = int(target[i])
 
@@ -22,11 +14,6 @@ fogaskerekek = [3, 3, 3]
 bh = 0
 jh = 0
 eredmeny = []
-
-
-
-
-
 
 while bh + jh < 5:
     while fogaskerekek[0] != target[0]:
@@ -51,9 +38,6 @@ while bh + jh < 5:
         jh += 1
     if bh + jh > maxhuzasok:
         break
-    
-
-
 
     if fogaskerekek == target:
         print(eredmeny)
@@ -61,10 +45,6 @@ while bh + jh < 5:
     if fogaskerekek[2] != target[2]:
         print("Megoldhatatlan")
         break
-
-
-
-
 
 if fogaskerekek != target:
         print("Megoldhatatlan")
