@@ -1,27 +1,50 @@
-min = int(input("min: "))
-max = int(input("max: "))
+target = input("kívánt állapot: ").replace("[","").replace("] ",", ").split(", ")
 
-ivallum = abs(max - min + 1)
-dobokockak = [20, 10, 8, 6, 4, 3, 2]
-eredmeny = [0, 0, 0, 0, 0, 0, 0]
+for i in range(len(target)):
+    target[i] = int(target[i])
 
-i = 0
-while i < len(dobokockak):
-    if ivallum % dobokockak[i] == 1:
-        i += 1
-    eredmeny[i] += ivallum // dobokockak[i]
-    ivallum -= dobokockak[i] * eredmeny[i]
-    i += 1
+maxhuzasok = target[-1]
+target.pop(target[-1])
 
-j = 0
-for k in range(len(eredmeny)):
-    if eredmeny[k] != 0:
-        if j != 0:
-            print("+", end="")
-        print(eredmeny[k], "d", dobokockak[k], sep="", end="")
-        j += 1
+left_lever = [1, 1, 0]
+right_lever = [0, 1, 1]
+indexer = [3, 1, 2, 3, 1, 2]
+fogaskerekek = [3, 3, 3]
 
-if min > 1:
-    print("+", end="")
-if min != 1:
-    print(min-1)
+bh = 0
+jh = 0
+eredmeny = []
+
+while bh + jh < 5:
+    while fogaskerekek[0] != target[0]:
+        for i in range(0, 2):
+            if i == 1:
+                fogaskerekek[i] = indexer[jh + bh + right_lever[i]]
+            else:
+                fogaskerekek[i] = indexer[bh + left_lever[i]]
+        eredmeny.append("'left'")
+        bh += 1
+    if bh + jh >= maxhuzasok:
+        break
+
+
+    while fogaskerekek[1] != target[1]:
+        for i in range(1, 3):
+            if i == 1:
+                fogaskerekek[i] = indexer[jh + bh + right_lever[i]]
+            else:
+                fogaskerekek[i] = indexer[jh + right_lever[i]]
+        eredmeny.append("'right'")
+        jh += 1
+    if bh + jh > maxhuzasok:
+        break
+
+    if fogaskerekek == target:
+        print(eredmeny)
+        break
+    if fogaskerekek[2] != target[2]:
+        print("Megoldhatatlan")
+        break
+
+if fogaskerekek != target:
+        print("Megoldhatatlan")
